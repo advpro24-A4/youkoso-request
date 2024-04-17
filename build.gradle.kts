@@ -1,5 +1,3 @@
-import java.util.Properties
-
 plugins {
     java
     id("org.springframework.boot") version "3.2.4"
