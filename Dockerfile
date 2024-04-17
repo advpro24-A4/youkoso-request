@@ -3,6 +3,8 @@ FROM eclipse-temurin:21-jdk-alpine AS builder
 WORKDIR /src/advprog
 COPY . .
 
+ARG DATABASE_URL=${DATABASE_URL}
+
 RUN ./gradlew flywayMigrate
 RUN ./gradlew clean bootJar
 
@@ -12,7 +14,6 @@ ARG USER_NAME=advprog
 ARG USER_UID=1000
 ARG USER_GID=${USER_UID}
 
-ARG DATABASE_URL=${DATABASE_URL}
 
 RUN addgroup -g ${USER_GID} ${USER_NAME} && adduser -h /opt/eshop -D -u ${USER_UID} -G ${USER_NAME} ${USER_NAME}
 
