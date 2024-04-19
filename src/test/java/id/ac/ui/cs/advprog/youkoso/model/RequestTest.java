@@ -39,6 +39,6 @@ public class RequestTest {
 
     @AfterEach
     void tearDown() {
-        this.voucher = null;
+        this.request = null;
     }
 }
