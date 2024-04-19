@@ -114,7 +114,7 @@ public class RequestRepositoryTest {
         requestRepository.create(request);
 
         requestRepository.delete(request.getId());
-        List<Request> searchDeletedRequest = requestRepository.findbyId(request.getId());
+        Request searchDeletedRequest = requestRepository.findById(request.getId());
         assertNull(searchDeletedRequest);
     }
 
