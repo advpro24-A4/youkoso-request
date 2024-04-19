@@ -12,7 +12,7 @@ public class RequestRepository {
         return null;
     }
 
-    public void delete(Request request) {
+    public void delete(String id) {
         return;
     }
 
@@ -25,6 +25,10 @@ public class RequestRepository {
     }
 
     public void edit(String id, int quantity, double price, String product) {
+        return;
+    }
+
+    public void edit(Request request) {
         return;
     }
 
