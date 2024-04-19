@@ -21,4 +21,33 @@ public class Request {
             throw new IllegalArgumentException("Quantity must be greater than 0");
         }
     }
+
+    public Request() {
+
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setQuantity(int quantity) {
+        if (quantity < 0) {
+            throw new IllegalArgumentException("Quantity must be greater than 0");
+        }
+        this.quantity = quantity;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+
 }
