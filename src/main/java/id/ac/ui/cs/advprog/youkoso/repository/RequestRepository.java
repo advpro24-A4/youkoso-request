@@ -20,11 +20,11 @@ public class RequestRepository {
         return null;
     }
 
-    public Request findRequestById(String id) {
+    public Request findById(String id) {
         return null;
     }
 
-    public void editRequest(String id, int quantity, double price, String product) {
+    public void edit(String id, int quantity, double price, String product) {
         return;
     }
 
