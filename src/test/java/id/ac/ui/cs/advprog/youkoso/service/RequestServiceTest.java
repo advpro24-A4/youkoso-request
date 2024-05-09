@@ -73,40 +73,40 @@ public class RequestServiceTest {
     @Test
     void testFindAllRequests() {
         Request request = requests.get(0);
-        when(requestRepository.create(request)).thenReturn(request);
-        requestService.create(request);
+        when(requestRepository.createRequest(request)).thenReturn(request);
+        requestService.createRequest(request);
 
         Iterator<Request> requestIterator = requests.iterator();
 
-        when(requestRepository.findAll()).thenReturn(requestIterator);
-        List<Request> foundRequests = requestService.findAll();
+        when(requestRepository.findAllRequest()).thenReturn(requestIterator);
+        List<Request> foundRequests = requestService.findAllRequest();
 
         assertEquals(request, foundRequests.get(0));
-        verify(requestRepository, times(1)).findAll();
+        verify(requestRepository, times(1)).findAllRequest();
     }
 
     @Test
     void testFindRequestById() {
         Request request = requests.get(0);
         String requestId = request.getId();
-        when(requestRepository.findById(requestId)).thenReturn(request);
+        when(requestRepository.findRequestById(requestId)).thenReturn(request);
 
-        Request foundRequest = requestService.findById(requestId);
+        Request foundRequest = requestService.findRequestById(requestId);
 
         assertEquals(request, foundRequest);
-        verify(requestRepository, times(1)).findById(requestId);
+        verify(requestRepository, times(1)).findRequestById(requestId);
     }
 
     @Test
     void testDeleteRequest() {
         Request request = new Request();
         String requestId = request.getId();
-        when(requestRepository.delete(requestId)).thenReturn(request);
+        when(requestRepository.deleteRequest(requestId)).thenReturn(request);
 
-        Request deletedRequest = requestService.delete(requestId);
+        Request deletedRequest = requestService.deleteRequest(requestId);
 
         assertEquals(request, deletedRequest);
-        verify(requestRepository, times(1)).delete(requestId);
+        verify(requestRepository, times(1)).deleteRequest(requestId);
     }
 
 
