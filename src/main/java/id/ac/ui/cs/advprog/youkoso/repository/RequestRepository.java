@@ -1,47 +1,59 @@
 package id.ac.ui.cs.advprog.youkoso.repository;
 
-import java.util.List;
-
 import org.springframework.stereotype.Repository;
 
 import id.ac.ui.cs.advprog.youkoso.model.Request;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.UUID;
+
 @Repository
 public class RequestRepository {
 
-    private static RequestRepository instance;
+    private List<Request> requestData = new ArrayList<>();
 
-    private RequestRepository() {
-    }
 
-    public static RequestRepository getInstance() {
-        if (instance == null) {
-            instance = new RequestRepository();
+    public Request createRequest(Request request) {
+        if (request.getId() == null) {
+            UUID uuid = UUID.randomUUID();
+            request.setId(uuid.toString());
         }
-        return instance;
+
+        requestData.add(request);
+        return request;
     }
-    public Request create(Request request) {
+
+    public Request updateRequest(String requestId, Request updatedRequest) {
+        for (Request request : requestData) {
+            if (request.getId().equals(requestId)) {
+                request.setId(updatedRequest.getId());
+                request.setProduct(updatedRequest.getProduct());
+                request.setQuantity(updatedRequest.getQuantity());
+                request.setPrice(updatedRequest.getPrice());
+                return request;
+            }
+        }
         return null;
     }
 
-    public void delete(String id) {
-        return;
+    public Iterator<Request> findAllRequest() {
+        return requestData.iterator();
     }
 
-    public List<Request> findAll() {
-        return null;
+    public Request findRequestById(String requestId) {
+        return requestData.stream()
+                .filter(request -> request.getId().equals(requestId))
+                .findFirst()
+                .orElseThrow(() ->
+                        new IllegalArgumentException("Invalid request Id:" + requestId)
+                );
     }
 
-    public Request findById(String id) {
-        return null;
+    public Request deleteRequest(String requestId) {
+        Request request = findRequestById(requestId);
+        requestData.remove(request);
+        return request;
     }
-
-    public void edit(String id, int quantity, double price, String product) {
-        return;
-    }
-
-    public void edit(Request request) {
-        return;
-    }
-
 }

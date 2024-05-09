@@ -62,6 +62,7 @@ public class RequestServiceTest {
         updatedRequest.setQuantity(20);
         updatedRequest.setPrice(30000);
 
+
         when(requestRepository.updateRequest(request.getId(), updatedRequest)).thenReturn(updatedRequest);
         Request result = requestService.updateRequest(request.getId(), updatedRequest);
 
