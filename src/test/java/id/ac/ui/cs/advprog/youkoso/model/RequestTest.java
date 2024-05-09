@@ -1,9 +1,10 @@
 package id.ac.ui.cs.advprog.youkoso.model;
 
-import org.aspectj.lang.annotation.Before;
+import id.ac.ui.cs.advprog.youkoso.model.builder.RequestBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -15,10 +16,10 @@ public class RequestTest {
     @BeforeEach
     public void setUp() {
         this.request = new RequestBuilder()
-                .setId("a5c376a3-4817-44da-b8cf-cdd117f5e731")
-                .setQuantity(5)
-                .setPrice(100.0)
-                .setProduct("Product Name")
+                .requestId("a5c376a3-4817-44da-b8cf-cdd117f5e731")
+                .requestQuantity(5)
+                .requestPrice(100.0)
+                .requestProduct("Product Name")
                 .build();
 
     }
