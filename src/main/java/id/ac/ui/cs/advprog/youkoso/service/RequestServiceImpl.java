@@ -4,6 +4,9 @@ import id.ac.ui.cs.advprog.youkoso.model.Request;
 import id.ac.ui.cs.advprog.youkoso.repository.RequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -13,27 +16,32 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public Request createRequest(Request request) {
-        return null;
+        requestRepository.createRequest(request);
+        return request;
     }
 
     @Override
     public Request updateRequest(String requestId, Request updatedRequest) {
-        return null;
+        requestRepository.updateRequest(requestId, updatedRequest);
+        return updatedRequest;
     }
 
     @Override
     public List<Request> findAllRequest() {
-        return null;
+        List<Request> requests = new ArrayList<>();
+        Iterator<Request> requestIterator = requestRepository.findAllRequest();
+        requestIterator.forEachRemaining(requests::add);
+        return requests;
     }
 
     @Override
     public Request findRequestById(String requestId) {
-        return null;
+        return requestRepository.findRequestById(requestId);
     }
 
     @Override
     public Request deleteRequest(String requestId) {
-        return null;
+        return requestRepository.deleteRequest(requestId);
     }
 
 }
