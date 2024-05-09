@@ -8,6 +8,18 @@ import id.ac.ui.cs.advprog.youkoso.model.Request;
 
 @Repository
 public class RequestRepository {
+
+    private static RequestRepository instance;
+
+    private RequestRepository() {
+    }
+
+    public static RequestRepository getInstance() {
+        if (instance == null) {
+            instance = new RequestRepository();
+        }
+        return instance;
+    }
     public Request create(Request request) {
         return null;
     }
