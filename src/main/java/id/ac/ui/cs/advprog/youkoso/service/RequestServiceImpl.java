@@ -2,7 +2,6 @@ package id.ac.ui.cs.advprog.youkoso.service;
 
 import id.ac.ui.cs.advprog.youkoso.model.Request;
 import id.ac.ui.cs.advprog.youkoso.repository.RequestRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,8 +10,12 @@ import java.util.List;
 
 @Service
 public class RequestServiceImpl implements RequestService {
-    @Autowired
-    private RequestRepository requestRepository;
+    private final RequestRepository requestRepository;
+
+    public RequestServiceImpl(RequestRepository requestRepository) {
+        this.requestRepository = requestRepository;
+    }
+
 
     @Override
     public Request createRequest(Request request) {
