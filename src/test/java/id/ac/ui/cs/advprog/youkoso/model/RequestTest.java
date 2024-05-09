@@ -14,11 +14,12 @@ public class RequestTest {
 
     @BeforeEach
     public void setUp() {
-        this.request = new Request();
-        this.request.setId("a5c376a3-4817-44da-b8cf-cdd117f5e731");
-        this.request.setQuantity(5);
-        this.request.setPrice(100.0);
-        this.request.setProduct("Product Name");
+        this.request = new RequestBuilder()
+                .setId("a5c376a3-4817-44da-b8cf-cdd117f5e731")
+                .setQuantity(5)
+                .setPrice(100.0)
+                .setProduct("Product Name")
+                .build();
 
     }
 
