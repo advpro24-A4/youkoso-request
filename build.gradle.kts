@@ -46,6 +46,7 @@ buildscript {
 
 flyway {
     url = System.getenv("DATABASE_URL") ?: "jdbc:postgresql://localhost:5432/Adpro?user=postgres&password=nandapratama5925"
+    cleanDisabled = false
 }
 
 

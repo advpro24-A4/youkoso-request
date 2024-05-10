@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -32,7 +33,7 @@ public class RequestRepositoryTest {
     @Test
     void testCreateAndFind() {
         Request request = new Request();
-        request.setId("a5c376a3-4817-44da-b8cf-cdd117f5e731");
+        request.setId(UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e731"));
         request.setQuantity(5);
         request.setPrice(100.0);
         request.setProduct("Product Name");
@@ -52,20 +53,20 @@ public class RequestRepositoryTest {
     @Test
     void testFindUnavailableRequest() {
         Request request1 = new Request();
-        request1.setId("a5c376a3-4817-44da-b8cf-cdd117f5e731");
+        request1.setId(UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e731"));
         request1.setQuantity(5);
         request1.setPrice(100.0);
         request1.setProduct("Product Name");
         requestRepository.createRequest(request1);
 
         Request request2 = new Request();
-        request2.setId("a5c376a3-4817-44da-b8cf-cdd117f5e732");
+        request2.setId(UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e732"));
         request2.setQuantity(5);
         request2.setPrice(100.0);
         request2.setProduct("Product Name");
         requestRepository.createRequest(request2);
 
-        Request obtainedRequest = requestRepository.findRequestById("a5c376a3-4817-44da-b8cf-cdd117f5e733");
+        Request obtainedRequest = requestRepository.findRequestById(UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e733"));
         assertNull(obtainedRequest);
 
     }
@@ -79,14 +80,14 @@ public class RequestRepositoryTest {
     @Test
     void testFindAllIfMoreThanOneRequest () {
         Request request1 = new Request();
-        request1.setId("a5c376a3-4817-44da-b8cf-cdd117f5e731");
+        request1.setId(UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e731"));
         request1.setQuantity(5);
         request1.setPrice(100.0);
         request1.setProduct("Product Name");
         requestRepository.createRequest(request1);
 
         Request request2 = new Request();
-        request2.setId("a5c376a3-4817-44da-b8cf-cdd117f5e732");
+        request2.setId(UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e732"));
         request2.setQuantity(5);
         request2.setPrice(100.0);
         request2.setProduct("Product Name");
@@ -106,7 +107,7 @@ public class RequestRepositoryTest {
     @Test
     void testDeleteRequest () {
         Request request = new Request();
-        request.setId("a5c376a3-4817-44da-b8cf-cdd117f5e731");
+        request.setId(UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e731"));
         request.setQuantity(5);
         request.setPrice(100.0);
         request.setProduct("Product Name");
@@ -120,20 +121,20 @@ public class RequestRepositoryTest {
     @Test
     void testEditRequest() {
         Request request = new Request();
-        request.setId("a5c376a3-4817-44da-b8cf-cdd117f5e731");
+        request.setId(UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e731"));
         request.setQuantity(5);
         request.setPrice(100.0);
         request.setProduct("Product Name");
         requestRepository.createRequest(request);
 
         Request editedRequest = new Request();
-        editedRequest.setId("a5c376a3-4817-44da-b8cf-cdd117f5e731");
+        editedRequest.setId(UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e731"));
         editedRequest.setQuantity(10);
         editedRequest.setPrice(200.0);
         editedRequest.setProduct("Product Name");
         requestRepository.editRequest(editedRequest);
 
-        Request foundRequest = requestRepository.findRequestById("a5c376a3-4817-44da-b8cf-cdd117f5e731");
+        Request foundRequest = requestRepository.findRequestById(UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e731"));
         assertEquals(editedRequest.getId(), foundRequest.getId());
         assertEquals(editedRequest.getQuantity(), foundRequest.getQuantity());
         assertEquals(editedRequest.getPrice(), foundRequest.getPrice());

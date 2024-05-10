@@ -6,6 +6,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -16,7 +18,7 @@ public class RequestTest {
     @BeforeEach
     public void setUp() {
         this.request = new RequestBuilder()
-                .requestId(158)
+                .requestId(UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e731"))
                 .requestQuantity(5)
                 .requestPrice(100.0)
                 .requestProduct("Product Name")

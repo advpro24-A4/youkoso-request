@@ -1,14 +1,17 @@
 package id.ac.ui.cs.advprog.youkoso.model.builder;
 
 import id.ac.ui.cs.advprog.youkoso.model.Request;
+
+import java.util.UUID;
+
 public class RequestBuilder {
-    private int requestId;
+    private UUID requestId;
     private int requestQuantity;
     private double requestPrice;
     private String requestProduct;
 
 
-    public RequestBuilder requestId(int requestId) {
+    public RequestBuilder requestId(UUID requestId) {
         this.requestId = requestId;
         return this;
     }

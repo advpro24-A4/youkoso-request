@@ -13,6 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -32,13 +33,13 @@ public class RequestServiceTest {
         requests = new ArrayList<>();
 
         Request request1 = new Request();
-        request1.setId("a5c376a3-4817-44da-b8cf-cdd117f5e731");
+        request1.setId(UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e731"));
         request1.setQuantity(10);
         request1.setPrice(100.0);
         request1.setProduct("Request 1");
 
         Request request2 = new Request();
-        request2.setId("a5c474a3-3817-44ca-b8uf-cdd127f5e771");
+        request2.setId(UUID.fromString("a5c474a3-3817-44ca-b8uf-cdd127f5e771"));
         request2.setQuantity(20);
         request2.setPrice(150.0);
         request2.setProduct("Request 2");
@@ -88,7 +89,7 @@ public class RequestServiceTest {
     @Test
     void testFindRequestById() {
         Request request = requests.get(0);
-        String requestId = request.getId();
+        UUID requestId = request.getId();
         when(requestRepository.findRequestById(requestId)).thenReturn(request);
 
         Request foundRequest = requestService.findRequestById(requestId);
@@ -100,7 +101,7 @@ public class RequestServiceTest {
     @Test
     void testDeleteRequest() {
         Request request = new Request();
-        String requestId = request.getId();
+        UUID requestId = request.getId();
         when(requestRepository.deleteRequest(requestId)).thenReturn(request);
 
         Request deletedRequest = requestService.deleteRequest(requestId);

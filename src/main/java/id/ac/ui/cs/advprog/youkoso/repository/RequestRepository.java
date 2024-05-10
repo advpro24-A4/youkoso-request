@@ -18,14 +18,14 @@ public class RequestRepository {
     public Request createRequest(Request request) {
         if (request.getId() == null) {
             UUID uuid = UUID.randomUUID();
-            request.setId(uuid.toString());
+            request.setId(uuid);
         }
 
         requestData.add(request);
         return request;
     }
 
-    public Request updateRequest(String requestId, Request updatedRequest) {
+    public Request updateRequest(UUID requestId, Request updatedRequest) {
         for (Request request : requestData) {
             if (request.getId().equals(requestId)) {
                 request.setId(updatedRequest.getId());
@@ -46,7 +46,7 @@ public class RequestRepository {
         return requestData.iterator();
     }
 
-    public Request findRequestById(String requestId) {
+    public Request findRequestById(UUID requestId) {
         return requestData.stream()
                 .filter(request -> request.getId().equals(requestId))
                 .findFirst()
@@ -55,7 +55,7 @@ public class RequestRepository {
                 );
     }
 
-    public Request deleteRequest(String requestId) {
+    public Request deleteRequest(UUID requestId) {
         Request request = findRequestById(requestId);
         requestData.remove(request);
         return request;

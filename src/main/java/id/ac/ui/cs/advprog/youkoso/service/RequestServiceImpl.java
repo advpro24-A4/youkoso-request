@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class RequestServiceImpl implements RequestService {
@@ -16,7 +17,6 @@ public class RequestServiceImpl implements RequestService {
         this.requestRepository = requestRepository;
     }
 
-
     @Override
     public Request createRequest(Request request) {
         requestRepository.createRequest(request);
@@ -24,7 +24,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public Request updateRequest(String requestId, Request updatedRequest) {
+    public Request updateRequest(UUID requestId, Request updatedRequest) {
         requestRepository.updateRequest(requestId, updatedRequest);
         return updatedRequest;
     }
@@ -38,13 +38,12 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public Request findRequestById(String requestId) {
+    public Request findRequestById(UUID requestId) {
         return requestRepository.findRequestById(requestId);
     }
 
     @Override
-    public Request deleteRequest(String requestId) {
+    public Request deleteRequest(UUID requestId) {
         return requestRepository.deleteRequest(requestId);
     }
-
 }
