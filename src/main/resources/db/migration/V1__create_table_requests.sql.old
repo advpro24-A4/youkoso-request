@@ -1,9 +1,0 @@
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-
-CREATE TABLE requests (
-                          id UUID DEFAULT uuid_generate_v4() NOT NULL,
-                          quantity INTEGER,
-                          price DECIMAL(10, 2),
-                          product_request_name VARCHAR(255) NOT NULL,
-                          PRIMARY KEY (id)
-);
