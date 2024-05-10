@@ -16,7 +16,7 @@ public class RequestTest {
     @BeforeEach
     public void setUp() {
         this.request = new RequestBuilder()
-                .requestId("a5c376a3-4817-44da-b8cf-cdd117f5e731")
+                .requestId(158)
                 .requestQuantity(5)
                 .requestPrice(100.0)
                 .requestProduct("Product Name")

@@ -38,6 +38,10 @@ public class RequestRepository {
         return null;
     }
 
+    public void editRequest(Request request) {
+        updateRequest(request.getId(), request);
+    }
+
     public Iterator<Request> findAllRequest() {
         return requestData.iterator();
     }

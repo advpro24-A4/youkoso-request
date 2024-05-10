@@ -37,13 +37,12 @@ public class RequestRepositoryTest {
         request.setPrice(100.0);
         request.setProduct("Product Name");
 
-        requestRepository.create(request);
+        requestRepository.createRequest(request);
 
-        List<Request> requests = requestRepository.findAll();
-        assertFalse(requests.isEmpty());
+        Iterator<Request> requestIterator = requestRepository.findAllRequest();
+        assertTrue(requestIterator.hasNext());
 
-
-        Request foundRequest = requests.get(0);
+        Request foundRequest = requestIterator.next();
         assertEquals(request.getId(), foundRequest.getId());
         assertEquals(request.getQuantity(), foundRequest.getQuantity());
         assertEquals(request.getPrice(), foundRequest.getPrice());
@@ -57,24 +56,24 @@ public class RequestRepositoryTest {
         request1.setQuantity(5);
         request1.setPrice(100.0);
         request1.setProduct("Product Name");
-        requestRepository.create(request1);
+        requestRepository.createRequest(request1);
 
         Request request2 = new Request();
         request2.setId("a5c376a3-4817-44da-b8cf-cdd117f5e732");
         request2.setQuantity(5);
         request2.setPrice(100.0);
         request2.setProduct("Product Name");
-        requestRepository.create(request2);
+        requestRepository.createRequest(request2);
 
-        Request obtainedRequest = requestRepository.findById("a5c376a3-4817-44da-b8cf-cdd117f5e733");
+        Request obtainedRequest = requestRepository.findRequestById("a5c376a3-4817-44da-b8cf-cdd117f5e733");
         assertNull(obtainedRequest);
 
     }
 
     @Test
     void testFindAllIfEmpty() {
-        List<Request> requests = requestRepository.findAll();
-        assertTrue(requests.isEmpty());
+        Iterator<Request> requests = requestRepository.findAllRequest();
+        assertFalse(requests.hasNext());
     }
 
     @Test
@@ -84,17 +83,17 @@ public class RequestRepositoryTest {
         request1.setQuantity(5);
         request1.setPrice(100.0);
         request1.setProduct("Product Name");
-        requestRepository.create(request1);
+        requestRepository.createRequest(request1);
 
         Request request2 = new Request();
         request2.setId("a5c376a3-4817-44da-b8cf-cdd117f5e732");
         request2.setQuantity(5);
         request2.setPrice(100.0);
         request2.setProduct("Product Name");
-        requestRepository.create(request2);
+        requestRepository.createRequest(request2);
 
-        List<Request> requests = requestRepository.findAll();
-        Iterator<Request> requestIterator = requests.iterator();
+
+        Iterator<Request> requestIterator = requestRepository.findAllRequest();
         assertTrue(requestIterator.hasNext());
 
         Request savedRequest = requestIterator.next();
@@ -111,10 +110,10 @@ public class RequestRepositoryTest {
         request.setQuantity(5);
         request.setPrice(100.0);
         request.setProduct("Product Name");
-        requestRepository.create(request);
+        requestRepository.createRequest(request);
 
-        requestRepository.delete(request.getId());
-        Request searchDeletedRequest = requestRepository.findById(request.getId());
+        requestRepository.deleteRequest(request.getId());
+        Request searchDeletedRequest = requestRepository.findRequestById(request.getId());
         assertNull(searchDeletedRequest);
     }
 
@@ -125,16 +124,16 @@ public class RequestRepositoryTest {
         request.setQuantity(5);
         request.setPrice(100.0);
         request.setProduct("Product Name");
-        requestRepository.create(request);
+        requestRepository.createRequest(request);
 
         Request editedRequest = new Request();
         editedRequest.setId("a5c376a3-4817-44da-b8cf-cdd117f5e731");
         editedRequest.setQuantity(10);
         editedRequest.setPrice(200.0);
         editedRequest.setProduct("Product Name");
-        requestRepository.edit(editedRequest);
+        requestRepository.editRequest(editedRequest);
 
-        Request foundRequest = requestRepository.findById("a5c376a3-4817-44da-b8cf-cdd117f5e731");
+        Request foundRequest = requestRepository.findRequestById("a5c376a3-4817-44da-b8cf-cdd117f5e731");
         assertEquals(editedRequest.getId(), foundRequest.getId());
         assertEquals(editedRequest.getQuantity(), foundRequest.getQuantity());
         assertEquals(editedRequest.getPrice(), foundRequest.getPrice());
