@@ -38,6 +38,7 @@ public class RequestRepositoryTest {
                 .requestQuantity(5)
                 .requestPrice(100.0)
                 .requestProduct("Product Name")
+                .requestCurrency("IDR")
                 .build();
 
         requestRepository.createRequest(request);
@@ -50,6 +51,7 @@ public class RequestRepositoryTest {
         assertEquals(request.getQuantity(), foundRequest.getQuantity());
         assertEquals(request.getPrice(), foundRequest.getPrice());
         assertEquals(request.getProduct(), foundRequest.getProduct());
+        assertEquals(request.getCurrency(), foundRequest.getCurrency());
     }
 
 
@@ -67,6 +69,7 @@ public class RequestRepositoryTest {
                 .requestQuantity(5)
                 .requestPrice(100.0)
                 .requestProduct("Product Name")
+                .requestCurrency("IDR")
                 .build();
         requestRepository.createRequest(request1);
 
@@ -75,6 +78,7 @@ public class RequestRepositoryTest {
                 .requestQuantity(5)
                 .requestPrice(100.0)
                 .requestProduct("Product Name")
+                .requestCurrency("IDR")
                 .build();
         requestRepository.createRequest(request2);
 
@@ -94,6 +98,7 @@ public class RequestRepositoryTest {
                 .requestQuantity(5)
                 .requestPrice(100.0)
                 .requestProduct("Product Name")
+                .requestCurrency("IDR")
                 .build();
 
         requestRepository.createRequest(request);
@@ -110,6 +115,7 @@ public class RequestRepositoryTest {
                 .requestQuantity(5)
                 .requestPrice(100.0)
                 .requestProduct("Product Name")
+                .requestCurrency("IDR")
                 .build();
         requestRepository.createRequest(request);
 
@@ -118,6 +124,7 @@ public class RequestRepositoryTest {
                 .requestQuantity(10)
                 .requestPrice(200.0)
                 .requestProduct("Product Name")
+                .requestCurrency("IDR")
                 .build();
         requestRepository.editRequest(editedRequest);
 
@@ -126,5 +133,6 @@ public class RequestRepositoryTest {
         assertEquals(editedRequest.getQuantity(), foundRequest.getQuantity());
         assertEquals(editedRequest.getPrice(), foundRequest.getPrice());
         assertEquals(editedRequest.getProduct(), foundRequest.getProduct());
+        assertEquals(editedRequest.getCurrency(), foundRequest.getCurrency());
     }
 }
