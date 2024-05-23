@@ -2,62 +2,10 @@ package id.ac.ui.cs.advprog.youkoso.repository;
 
 import org.springframework.stereotype.Repository;
 
-import id.ac.ui.cs.advprog.youkoso.model.builder.RequestBuilder;
 import id.ac.ui.cs.advprog.youkoso.model.Request;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.UUID;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository
-public class RequestRepository {
+public interface RequestRepository extends JpaRepository<Request, Long>{
 
-    private List<Request> requestData = new ArrayList<>();
-
-
-    public Request createRequest(Request request) {
-        if (request.getId() == null) {
-            UUID uuid = UUID.randomUUID();
-            request.setId(uuid);
-        }
-
-
-        requestData.add(request);
-        return request;
-    }
-
-    public Request updateRequest(UUID requestId, Request updatedRequest) {
-        for (Request request : requestData) {
-            if (request.getId().equals(requestId)) {
-                request.setId(updatedRequest.getId());
-                request.setProduct(updatedRequest.getProduct());
-                request.setQuantity(updatedRequest.getQuantity());
-                request.setPrice(updatedRequest.getPrice());
-                return request;
-            }
-        }
-        return null;
-    }
-
-    public void editRequest(Request request) {
-        updateRequest(request.getId(), request);
-    }
-
-    public Iterator<Request> findAllRequest() {
-        return requestData.iterator();
-    }
-
-    public Request findRequestById(UUID requestId) {
-        return requestData.stream()
-                .filter(request -> request.getId().equals(requestId))
-                .findFirst()
-                .orElse(null);
-    }
-
-    public Request deleteRequest(UUID requestId) {
-        Request request = findRequestById(requestId);
-        requestData.remove(request);
-        return request;
-    }
 }
