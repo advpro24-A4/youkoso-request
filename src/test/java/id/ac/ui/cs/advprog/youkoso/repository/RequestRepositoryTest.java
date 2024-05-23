@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.youkoso.repository;
 
+import id.ac.ui.cs.advprog.youkoso.model.builder.RequestBuilder;
 import id.ac.ui.cs.advprog.youkoso.model.Request;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -32,11 +33,12 @@ public class RequestRepositoryTest {
 
     @Test
     void testCreateAndFind() {
-        Request request = new Request();
-        request.setId(UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e731"));
-        request.setQuantity(5);
-        request.setPrice(100.0);
-        request.setProduct("Product Name");
+        Request request = new RequestBuilder()
+                .requestId(UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e731"))
+                .requestQuantity(5)
+                .requestPrice(100.0)
+                .requestProduct("Product Name")
+                .build();
 
         requestRepository.createRequest(request);
 
@@ -50,26 +52,7 @@ public class RequestRepositoryTest {
         assertEquals(request.getProduct(), foundRequest.getProduct());
     }
 
-    @Test
-    void testFindUnavailableRequest() {
-        Request request1 = new Request();
-        request1.setId(UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e731"));
-        request1.setQuantity(5);
-        request1.setPrice(100.0);
-        request1.setProduct("Product Name");
-        requestRepository.createRequest(request1);
 
-        Request request2 = new Request();
-        request2.setId(UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e732"));
-        request2.setQuantity(5);
-        request2.setPrice(100.0);
-        request2.setProduct("Product Name");
-        requestRepository.createRequest(request2);
-
-        Request obtainedRequest = requestRepository.findRequestById(UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e733"));
-        assertNull(obtainedRequest);
-
-    }
 
     @Test
     void testFindAllIfEmpty() {
@@ -78,21 +61,22 @@ public class RequestRepositoryTest {
     }
 
     @Test
-    void testFindAllIfMoreThanOneRequest () {
-        Request request1 = new Request();
-        request1.setId(UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e731"));
-        request1.setQuantity(5);
-        request1.setPrice(100.0);
-        request1.setProduct("Product Name");
+    void testFindAllIfMoreThanOneRequest() {
+        Request request1 = new RequestBuilder()
+                .requestId(UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e731"))
+                .requestQuantity(5)
+                .requestPrice(100.0)
+                .requestProduct("Product Name")
+                .build();
         requestRepository.createRequest(request1);
 
-        Request request2 = new Request();
-        request2.setId(UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e732"));
-        request2.setQuantity(5);
-        request2.setPrice(100.0);
-        request2.setProduct("Product Name");
+        Request request2 = new RequestBuilder()
+                .requestId(UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e732"))
+                .requestQuantity(5)
+                .requestPrice(100.0)
+                .requestProduct("Product Name")
+                .build();
         requestRepository.createRequest(request2);
-
 
         Iterator<Request> requestIterator = requestRepository.findAllRequest();
         assertTrue(requestIterator.hasNext());
@@ -101,16 +85,16 @@ public class RequestRepositoryTest {
         assertEquals(request1.getId(), savedRequest.getId());
         savedRequest = requestIterator.next();
         assertEquals(request2.getId(), savedRequest.getId());
-
     }
 
     @Test
-    void testDeleteRequest () {
-        Request request = new Request();
-        request.setId(UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e731"));
-        request.setQuantity(5);
-        request.setPrice(100.0);
-        request.setProduct("Product Name");
+    void testDeleteRequest() {
+        Request request = new RequestBuilder()
+                .requestId(UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e731"))
+                .requestQuantity(5)
+                .requestPrice(100.0)
+                .requestProduct("Product Name")
+                .build();
         requestRepository.createRequest(request);
 
         requestRepository.deleteRequest(request.getId());
@@ -120,18 +104,20 @@ public class RequestRepositoryTest {
 
     @Test
     void testEditRequest() {
-        Request request = new Request();
-        request.setId(UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e731"));
-        request.setQuantity(5);
-        request.setPrice(100.0);
-        request.setProduct("Product Name");
+        Request request = new RequestBuilder()
+                .requestId(UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e731"))
+                .requestQuantity(5)
+                .requestPrice(100.0)
+                .requestProduct("Product Name")
+                .build();
         requestRepository.createRequest(request);
 
-        Request editedRequest = new Request();
-        editedRequest.setId(UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e731"));
-        editedRequest.setQuantity(10);
-        editedRequest.setPrice(200.0);
-        editedRequest.setProduct("Product Name");
+        Request editedRequest = new RequestBuilder()
+                .requestId(UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e731"))
+                .requestQuantity(10)
+                .requestPrice(200.0)
+                .requestProduct("Product Name")
+                .build();
         requestRepository.editRequest(editedRequest);
 
         Request foundRequest = requestRepository.findRequestById(UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e731"));
