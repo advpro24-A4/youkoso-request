@@ -2,6 +2,7 @@ package id.ac.ui.cs.advprog.youkoso.repository;
 
 import org.springframework.stereotype.Repository;
 
+import id.ac.ui.cs.advprog.youkoso.model.builder.RequestBuilder;
 import id.ac.ui.cs.advprog.youkoso.model.Request;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class RequestRepository {
             UUID uuid = UUID.randomUUID();
             request.setId(uuid);
         }
+
 
         requestData.add(request);
         return request;
@@ -50,9 +52,7 @@ public class RequestRepository {
         return requestData.stream()
                 .filter(request -> request.getId().equals(requestId))
                 .findFirst()
-                .orElseThrow(() ->
-                        new IllegalArgumentException("Invalid request Id:" + requestId)
-                );
+                .orElse(null);
     }
 
     public Request deleteRequest(UUID requestId) {

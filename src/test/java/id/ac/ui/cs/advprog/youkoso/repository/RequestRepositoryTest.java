@@ -95,6 +95,7 @@ public class RequestRepositoryTest {
                 .requestPrice(100.0)
                 .requestProduct("Product Name")
                 .build();
+
         requestRepository.createRequest(request);
 
         requestRepository.deleteRequest(request.getId());
