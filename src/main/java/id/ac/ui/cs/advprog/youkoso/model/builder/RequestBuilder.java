@@ -10,6 +10,8 @@ public class RequestBuilder {
     private double requestPrice;
     private String requestProduct;
 
+    private String requestCurrency;
+
 
     public RequestBuilder requestId(UUID requestId) {
         this.requestId = requestId;
@@ -31,12 +33,21 @@ public class RequestBuilder {
         return this;
     }
 
+    public RequestBuilder requestCurrency(String requestCurrency) {
+        this.requestCurrency = requestCurrency;
+        return this;
+    }
+
+
+
     public Request build() {
         Request request = new Request();
         request.setId(this.requestId);
         request.setQuantity(this.requestQuantity);
         request.setPrice(this.requestPrice);
         request.setProduct(this.requestProduct);
+        request.setCurrency(this.requestCurrency);
         return request;
     }
+
 }

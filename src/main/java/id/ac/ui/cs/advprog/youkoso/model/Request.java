@@ -25,5 +25,25 @@ public class Request {
     @Column(name = "product_request_name")
     private String product;
 
+    private String currency;
+
+    public double convertPriceToIDR() {
+        double priceInIDR = 0.0;
+
+        switch (currency) {
+            case "USD":
+                priceInIDR = price * 14000;
+                break;
+            case "JPY":
+                priceInIDR = price * 130;
+                break;
+            case "IDR":
+                priceInIDR = price;
+                break;
+        }
+
+        return priceInIDR;
+    }
+
 
 }
