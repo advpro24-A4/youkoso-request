@@ -1,4 +1,1 @@
-ALTER TABLE selling_items
-    ADD CONSTRAINT FK_SELLING_ITEMS_ON_REQUEST FOREIGN KEY (request_id) REFERENCES requests (id);
-
 DROP TABLE "user" CASCADE;
