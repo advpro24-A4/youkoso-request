@@ -11,6 +11,6 @@ ENV JDBC_DATABASE_USERNAME ${JDBC_DATABASE_USERNAME}
 
 WORKDIR /app
 RUN ls -al
-COPY ./youkoso-product-0.0.1-SNAPSHOT.jar /app
+COPY ./youkoso-request-0.0.1-SNAPSHOT.jar /app
 EXPOSE 8080
-CMD ["java","-jar","youkoso-product-0.0.1-SNAPSHOT.jar"]
+CMD ["java","-jar","youkoso-request-0.0.1-SNAPSHOT.jar"]
