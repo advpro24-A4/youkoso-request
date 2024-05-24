@@ -1,1 +1,1 @@
-rootProject.name = "youkoso"
+rootProject.name = "youkoso-request"
