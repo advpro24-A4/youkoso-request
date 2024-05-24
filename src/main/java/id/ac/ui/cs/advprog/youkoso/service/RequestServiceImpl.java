@@ -5,10 +5,8 @@ import id.ac.ui.cs.advprog.youkoso.repository.RequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -24,35 +22,37 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public Request updateRequest(UUID requestId, Request updatedRequest) {
-        Request request = requestRepository.findRequestById(requestId);
-        request.setQuantity(updatedRequest.getQuantity());
-        request.setPrice(updatedRequest.getPrice());
-        request.setProduct(updatedRequest.getProduct());
-        request.setCurrency(updatedRequest.getCurrency());
-        return requestRepository.save(request);
+        Optional<Request> optionalRequest = requestRepository.findRequestById(requestId);
+        if (optionalRequest.isPresent()) {
+            Request request = optionalRequest.get();
+            request.setQuantity(updatedRequest.getQuantity());
+            request.setPrice(updatedRequest.getPrice());
+            request.setProduct(updatedRequest.getProduct());
+            request.setCurrency(updatedRequest.getCurrency());
+            return requestRepository.save(request);
+        }
+        return null;
     }
 
     @Override
     public List<Request> findAllRequest() {
-        List<Request> requests = new ArrayList<>();
-        Iterator<Request> iterator = requestRepository.findAll().iterator();
-        iterator.forEachRemaining(requests::add);
-        return requests;
+        return requestRepository.findAll();
     }
 
     @Override
     public Request findRequestById(UUID requestId) {
-        return requestRepository.findRequestById(requestId);
+        Optional<Request> optionalRequest = requestRepository.findRequestById(requestId);
+        return optionalRequest.orElse(null);
     }
 
     @Override
     public Request deleteRequest(UUID requestId) {
-        Request request = requestRepository.findRequestById(requestId);
-        requestRepository.delete(request);
-        return request;
+        Optional<Request> optionalRequest = requestRepository.findRequestById(requestId);
+        if (optionalRequest.isPresent()) {
+            Request request = optionalRequest.get();
+            requestRepository.delete(request);
+            return request;
+        }
+        return null;
     }
-
-
-
-
 }

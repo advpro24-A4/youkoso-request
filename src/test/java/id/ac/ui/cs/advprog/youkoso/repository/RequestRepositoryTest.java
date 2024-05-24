@@ -40,8 +40,9 @@ public class RequestRepositoryTest {
     @Test
     void testCreateAndFindRequest() {
         requestRepository.save(request);
-        Optional<Request> foundRequest = requestRepository.findById(request.getId());
-        assertThat(foundRequest.get()).isEqualTo(request);
+        Optional<Request> foundRequest = requestRepository.findRequestById(request.getId());
+        assertTrue(foundRequest.isPresent());
+        assertEquals(request, foundRequest.get());
     }
 
 

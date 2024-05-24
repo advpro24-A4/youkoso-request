@@ -11,8 +11,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -39,20 +39,23 @@ public class RequestServiceTest {
         request1.setProduct("Request 1");
 
         Request request2 = new Request();
-        request2.setId(UUID.fromString("a5c474a3-3817-44ca-b8uf-cdd127f5e771"));
+        request2.setId(UUID.fromString("a5c474a3-3817-44ca-b8cf-cdd127f5e771"));
         request2.setQuantity(20);
         request2.setPrice(150.0);
         request2.setProduct("Request 2");
 
+        requests.add(request1);
+        requests.add(request2);
     }
 
     @Test
     void testCreateRequest() {
-        Request request = requests.getFirst();
+        Request request = requests.get(0);
+        when(requestRepository.save(request)).thenReturn(request);
         Request createdRequest = requestService.createRequest(request);
 
         assertEquals(request, createdRequest);
-        verify(requestRepository, times(1)).createRequest(createdRequest);
+        verify(requestRepository, times(1)).save(request);
     }
 
     @Test
@@ -63,34 +66,29 @@ public class RequestServiceTest {
         updatedRequest.setQuantity(20);
         updatedRequest.setPrice(30000);
 
-
-        when(requestRepository.updateRequest(request.getId(), updatedRequest)).thenReturn(updatedRequest);
+        when(requestRepository.findRequestById(request.getId())).thenReturn(Optional.of(request));
+        when(requestRepository.save(request)).thenReturn(updatedRequest);
         Request result = requestService.updateRequest(request.getId(), updatedRequest);
 
-        verify(requestRepository, times(1)).updateRequest(request.getId(), updatedRequest);
+        verify(requestRepository, times(1)).findRequestById(request.getId());
+        verify(requestRepository, times(1)).save(request);
         assertEquals(updatedRequest, result);
     }
 
     @Test
     void testFindAllRequests() {
-        Request request = requests.get(0);
-        when(requestRepository.createRequest(request)).thenReturn(request);
-        requestService.createRequest(request);
-
-        Iterator<Request> requestIterator = requests.iterator();
-
-        when(requestRepository.findAllRequest()).thenReturn(requestIterator);
+        when(requestRepository.findAll()).thenReturn(requests);
         List<Request> foundRequests = requestService.findAllRequest();
 
-        assertEquals(request, foundRequests.get(0));
-        verify(requestRepository, times(1)).findAllRequest();
+        assertEquals(requests, foundRequests);
+        verify(requestRepository, times(1)).findAll();
     }
 
     @Test
     void testFindRequestById() {
         Request request = requests.get(0);
         UUID requestId = request.getId();
-        when(requestRepository.findRequestById(requestId)).thenReturn(request);
+        when(requestRepository.findRequestById(requestId)).thenReturn(Optional.of(request));
 
         Request foundRequest = requestService.findRequestById(requestId);
 
@@ -100,15 +98,14 @@ public class RequestServiceTest {
 
     @Test
     void testDeleteRequest() {
-        Request request = new Request();
+        Request request = requests.get(0);
         UUID requestId = request.getId();
-        when(requestRepository.deleteRequest(requestId)).thenReturn(request);
+        when(requestRepository.findRequestById(requestId)).thenReturn(Optional.of(request));
 
         Request deletedRequest = requestService.deleteRequest(requestId);
 
         assertEquals(request, deletedRequest);
-        verify(requestRepository, times(1)).deleteRequest(requestId);
+        verify(requestRepository, times(1)).findRequestById(requestId);
+        verify(requestRepository, times(1)).delete(request);
     }
-
-
 }
