@@ -3,6 +3,7 @@ package id.ac.ui.cs.advprog.youkoso.repository;
 import id.ac.ui.cs.advprog.youkoso.model.builder.RequestBuilder;
 import id.ac.ui.cs.advprog.youkoso.model.Request;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class RequestRepositoryTest {
     @Autowired
     private RequestRepository requestRepository;
 
-    Request request;
+    private Request request;
 
     @BeforeEach
     void setUp() {
@@ -43,6 +44,11 @@ public class RequestRepositoryTest {
         Optional<Request> foundRequest = requestRepository.findRequestById(request.getId());
         assertTrue(foundRequest.isPresent());
         assertEquals(request, foundRequest.get());
+    }
+
+    @AfterEach
+    void tearDown() {
+        requestRepository.deleteAll();
     }
 
 

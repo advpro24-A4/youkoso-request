@@ -56,5 +56,11 @@ public class SellingItemRepositoryTest {
         assertThat(foundSellingItem.get()).isEqualTo(sellingItem);
     }
 
+    @AfterEach
+    void tearDown() {
+        sellingItemRepository.deleteAll();
+        requestRepository.deleteAll();
+    }
+
 
 }

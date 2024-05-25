@@ -3,6 +3,7 @@ package id.ac.ui.cs.advprog.youkoso.service;
 import id.ac.ui.cs.advprog.youkoso.model.Request;
 import id.ac.ui.cs.advprog.youkoso.repository.RequestRepository;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -107,5 +108,10 @@ public class RequestServiceTest {
         assertEquals(request, deletedRequest);
         verify(requestRepository, times(1)).findRequestById(requestId);
         verify(requestRepository, times(1)).delete(request);
+    }
+
+    @AfterEach
+    void tearDown() {
+        requests.clear();
     }
 }
