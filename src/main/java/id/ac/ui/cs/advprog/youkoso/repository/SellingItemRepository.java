@@ -1,19 +1,20 @@
 package id.ac.ui.cs.advprog.youkoso.repository;
 
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.transaction.annotation.Transactional;
-
 import id.ac.ui.cs.advprog.youkoso.model.SellingItem;
-public interface SellingItemRepository extends JpaRepository<SellingItem, Long> {
-    @Modifying
-    @Transactional
-    @Query("UPDATE SellingItem s SET s.quantity = ?1 WHERE s.id = ?2")
-    void updateQuantity(int quantity, Long id);
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import id.ac.ui.cs.advprog.youkoso.model.Request;
 
-    @Modifying
-    @Transactional
-    @Query("DELETE FROM SellingItem s WHERE s.id = ?1")
-    void deleteById(Long id);
+import java.util.Optional;
+import java.util.UUID;
+
+
+@Repository
+public interface SellingItemRepository extends JpaRepository<SellingItem, UUID> {
+
+    Optional<SellingItem> findSellingItemById(UUID itemId);
+
+    Optional<SellingItem> findByQuantity(int quantity);
+
+    Optional<SellingItem> findByRequest(Request request);
 }
