@@ -20,7 +20,7 @@ public class SellingItemController {
     }
 
     @GetMapping("/{itemId}")
-    public ResponseEntity<SellingItem> getSellingItemById(@PathVariable UUID itemId) {
+    public ResponseEntity<SellingItem> getSellingItemById(@PathVariable int itemId) {
         Optional<SellingItem> sellingItemOptional = sellingItemService.findSellingItemById(itemId);
         if (sellingItemOptional.isPresent()) {
             return new ResponseEntity<>(sellingItemOptional.get(), HttpStatus.OK);
@@ -30,7 +30,7 @@ public class SellingItemController {
     }
 
     @PutMapping("/{itemId}")
-    public ResponseEntity<SellingItem> updateSellingItem(@PathVariable UUID itemId, @RequestBody SellingItem updatedSellingItem) {
+    public ResponseEntity<SellingItem> updateSellingItem(@PathVariable int itemId, @RequestBody SellingItem updatedSellingItem) {
         SellingItem sellingItem = sellingItemService.updateSellingItem(itemId, updatedSellingItem);
         if (sellingItem != null) {
             return new ResponseEntity<>(sellingItem, HttpStatus.OK);
@@ -40,7 +40,7 @@ public class SellingItemController {
     }
 
     @DeleteMapping("delete/{itemId}")
-    public ResponseEntity<SellingItem> deleteSellingItem(@PathVariable UUID itemId) {
+    public ResponseEntity<SellingItem> deleteSellingItem(@PathVariable int itemId) {
         SellingItem sellingItem = sellingItemService.deleteSellingItem(itemId);
         if (sellingItem != null) {
             return new ResponseEntity<>(sellingItem, HttpStatus.OK);

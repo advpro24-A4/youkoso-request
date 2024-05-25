@@ -14,7 +14,7 @@ import java.util.UUID;
 public class SellingItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id;
+    private int id;
 
     @ManyToOne
     @JoinColumn(name = "request_id")

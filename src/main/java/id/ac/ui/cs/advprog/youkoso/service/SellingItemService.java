@@ -8,8 +8,8 @@ import java.util.UUID;
 
 public interface SellingItemService {
     SellingItem createSellingItem(SellingItem sellingItem);
-    SellingItem updateSellingItem(UUID itemId, SellingItem updatedSellingItem);
+    SellingItem updateSellingItem(int itemId, SellingItem updatedSellingItem);
     List<SellingItem> findAllSellingItems();
-    Optional<SellingItem> findSellingItemById(UUID itemId);
-    SellingItem deleteSellingItem(UUID itemId);
+    Optional<SellingItem> findSellingItemById(int itemId);
+    SellingItem deleteSellingItem(int itemId);
 }

@@ -10,9 +10,9 @@ import java.util.UUID;
 
 
 @Repository
-public interface SellingItemRepository extends JpaRepository<SellingItem, UUID> {
+public interface SellingItemRepository extends JpaRepository<SellingItem, Integer> {
 
-    Optional<SellingItem> findSellingItemById(UUID itemId);
+    Optional<SellingItem> findSellingItemById(int itemId);
 
     Optional<SellingItem> findByQuantity(int quantity);
 
