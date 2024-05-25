@@ -65,6 +65,8 @@ jobs:
             ${{ runner.os }}-gradle-
       - name: Test with Gradle
         run: |
+          ./gradlew flywayClean
+          ./gradlew flywayMigrate
           ./gradlew check --info --stacktrace
           ./gradlew test
           ./gradlew jacocoTestReport
