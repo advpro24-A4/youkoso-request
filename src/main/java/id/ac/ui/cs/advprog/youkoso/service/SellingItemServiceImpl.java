@@ -26,7 +26,7 @@ public class SellingItemServiceImpl implements SellingItemService {
 
     @Override
     public SellingItem updateSellingItem(UUID itemId, SellingItem updatedSellingItem) {
-        Optional<SellingItem> sellingItemOptional = sellingItemRepository.findById(itemId);
+        Optional<SellingItem> sellingItemOptional = sellingItemRepository.findSellingItemById(itemId);
         if (sellingItemOptional.isPresent()) {
             SellingItem sellingItem = sellingItemOptional.get();
             // update the sellingItem fields here
@@ -43,12 +43,12 @@ public class SellingItemServiceImpl implements SellingItemService {
 
     @Override
     public Optional<SellingItem> findSellingItemById(UUID itemId) {
-        return sellingItemRepository.findById(itemId);
+        return sellingItemRepository.findSellingItemById(itemId);
     }
 
     @Override
     public SellingItem deleteSellingItem(UUID itemId) {
-        Optional<SellingItem> sellingItemOptional = sellingItemRepository.findById(itemId);
+        Optional<SellingItem> sellingItemOptional = sellingItemRepository.findSellingItemById(itemId);
         if (sellingItemOptional.isPresent()) {
             SellingItem sellingItem = sellingItemOptional.get();
             sellingItemRepository.delete(sellingItem);

@@ -6,11 +6,11 @@ import id.ac.ui.cs.advprog.youkoso.model.SellingItem;
 import java.util.UUID;
 
 public class SellingItemBuilder {
-    private int id;
+    private UUID id;
     private int quantity;
     private Request request;
 
-    public SellingItemBuilder setId(int id) {
+    public SellingItemBuilder setId(UUID id) {
         this.id = id;
         return this;
     }

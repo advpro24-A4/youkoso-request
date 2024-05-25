@@ -4,6 +4,7 @@ import id.ac.ui.cs.advprog.youkoso.model.Request;
 import id.ac.ui.cs.advprog.youkoso.model.SellingItem;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -27,17 +28,33 @@ public class SellingItemRepositoryTest {
     @Autowired
     private RequestRepository requestRepository;
 
+
+    @BeforeEach
+    void setUp() {
+        Request request = new Request();
+        request.setQuantity(1);
+        request.setPrice(1000);
+        request.setProduct("Product");
+        request.setCurrency("IDR");
+        requestRepository.save(request);
+
+        SellingItem sellingItem = new SellingItem();
+        sellingItem.setQuantity(1);
+        sellingItem.setRequest(request);
+        sellingItemRepository.save(sellingItem);
+    }
+
     @Test
-    void testSaveSellingItem() {
-        UUID requestId = UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e731");
+    void testCreateAndFindSellingItem() {
+        SellingItem sellingItem = new SellingItem();
+        sellingItem.setQuantity(1);
+        sellingItem.setRequest(requestRepository.findAll().get(0));
+        sellingItemRepository.save(sellingItem);
 
-        Optional<Request> request = requestRepository.findRequestById(requestId);
+        Optional<SellingItem> foundSellingItem = sellingItemRepository.findSellingItemById(sellingItem.getId());
+        assertThat(foundSellingItem.isPresent()).isTrue();
+        assertThat(foundSellingItem.get()).isEqualTo(sellingItem);
     }
 
-    @AfterEach
-    void tearDown() {
-        sellingItemRepository.deleteAll();
-        requestRepository.deleteAll();
-    }
 
 }
