@@ -64,40 +64,14 @@ flyway {
 }
 
 
-tasks.register<Test>("unitTest") {
-    description = "Runs unit tests."
-    group = "verification"
-
-    filter {
-        excludeTestsMatching("*FunctionalTest")
-    }
-}
-
-tasks.register<Test>("functionalTest") {
-    description = "Runs functional tests."
-    group = "verification"
-
-    filter {
-        includeTestsMatching("*FunctionalTest")
-    }
-}
-
-tasks.withType<Test>().configureEach {
+tasks.withType<Test> {
     useJUnitPlatform()
+    finalizedBy("jacocoTestReport") // Generate the report after tests run
 }
 
-tasks.test {
-    useJUnitPlatform()
-    finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
-}
-tasks.jacocoTestReport {
-    classDirectories.setFrom(files(classDirectories.files.map {
-        fileTree(it) { exclude("**/*Application**") }
-    }))
-    dependsOn(tasks.test) // tests are required to run before generating the report
+tasks.jacocoTestReport{
+    dependsOn("test")
     reports {
         xml.required.set(true)
-        csv.required.set(true)
-        html.outputLocation.set(layout.buildDirectory.dir("jacocoHtml"))
     }
 }
