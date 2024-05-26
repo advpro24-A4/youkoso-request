@@ -41,6 +41,46 @@ public class RequestTest {
         assertEquals("Product Name", this.request.getProduct());
     }
 
+    @Test
+    void testConvertPriceToIDR_USD() {
+        this.request = new RequestBuilder()
+                .requestPrice(10.0)
+                .requestCurrency("USD")
+                .build();
+        double expectedPriceInIDR = 10.0 * 14000;
+        assertEquals(expectedPriceInIDR, this.request.convertPriceToIDR());
+    }
+
+    @Test
+    void testConvertPriceToIDR_JPY() {
+        this.request = new RequestBuilder()
+                .requestPrice(10.0)
+                .requestCurrency("JPY")
+                .build();
+        double expectedPriceInIDR = 10.0 * 130;
+        assertEquals(expectedPriceInIDR, this.request.convertPriceToIDR());
+    }
+
+    @Test
+    void testConvertPriceToIDR_IDR() {
+        this.request = new RequestBuilder()
+                .requestPrice(10.0)
+                .requestCurrency("IDR")
+                .build();
+        double expectedPriceInIDR = 10.0;
+        assertEquals(expectedPriceInIDR, this.request.convertPriceToIDR());
+    }
+
+    @Test
+    void testConvertPriceToIDR_OtherCurrency() {
+        this.request = new RequestBuilder()
+                .requestPrice(10.0)
+                .requestCurrency("EUR") // Use a currency that is not "USD", "JPY", or "IDR"
+                .build();
+        double expectedPriceInIDR = 0.0;
+        assertEquals(expectedPriceInIDR, this.request.convertPriceToIDR());
+    }
+
     @AfterEach
     void tearDown() {
         this.request = null;

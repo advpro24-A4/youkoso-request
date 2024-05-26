@@ -77,6 +77,21 @@ public class RequestServiceTest {
     }
 
     @Test
+    void testUpdateRequestFailure() {
+        UUID requestId = UUID.randomUUID();
+        Request updatedRequest = new Request();
+
+        updatedRequest.setQuantity(20);
+        updatedRequest.setPrice(30000);
+
+        when(requestRepository.findRequestById(requestId)).thenReturn(Optional.empty());
+        Request result = requestService.updateRequest(requestId, updatedRequest);
+
+        assertNull(result);
+        verify(requestRepository, times(1)).findRequestById(requestId);
+    }
+
+    @Test
     void testFindAllRequests() {
         when(requestRepository.findAll()).thenReturn(requests);
         List<Request> foundRequests = requestService.findAllRequest();
@@ -108,6 +123,17 @@ public class RequestServiceTest {
         assertEquals(request, deletedRequest);
         verify(requestRepository, times(1)).findRequestById(requestId);
         verify(requestRepository, times(1)).delete(request);
+    }
+
+    @Test
+    void testDeleteRequestFailure() {
+        UUID requestId = UUID.randomUUID();
+        when(requestRepository.findRequestById(requestId)).thenReturn(Optional.empty());
+
+        Request deletedRequest = requestService.deleteRequest(requestId);
+
+        assertNull(deletedRequest);
+        verify(requestRepository, times(1)).findRequestById(requestId);
     }
 
     @AfterEach
