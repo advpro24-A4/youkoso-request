@@ -21,7 +21,7 @@ public class RequestController {
     public RequestController(RequestService requestService) {
         this.requestService = requestService;
     }
-    
+
 
     @PostMapping("/create")
     public ResponseEntity<Request> createRequest(@RequestBody Request request) {
