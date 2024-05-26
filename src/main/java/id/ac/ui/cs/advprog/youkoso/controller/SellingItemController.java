@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 import java.util.UUID;
 
+@CrossOrigin(origins = "http://10.5.50.130:3000/")
 @RestController
 @RequestMapping("/sellingItem")
 public class SellingItemController {
