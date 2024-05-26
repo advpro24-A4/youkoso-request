@@ -1,7 +1,8 @@
-name: SonarCloud Analysis
+name: SonarCloud
 on:
   push:
   pull_request:
+    types: [opened, synchronize, reopened]
 jobs:
   build:
     name: Build and analyze
@@ -9,12 +10,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          fetch-depth: 0  s
       - name: Set up JDK 21
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
-          java-version: 21
-          distribution: 'zulu'
+          distribution: "temurin"
+          java-version: "21"
+          cache: "gradle"
       - name: Cache SonarCloud packages
         uses: actions/cache@v3
         with:
@@ -27,10 +29,10 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
-      - name: Set gradlew as executable
-        run: chmod +x ./gradlew
+      - name: Build and run tests
+        run: chmod +x ./gradlew && ./gradlew test jacocoTestReport
       - name: Build and analyze
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./gradlew build sonar --info
+        run: chmod +x ./gradlew && ./gradlew build sonar --info

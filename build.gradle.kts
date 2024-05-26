@@ -1,10 +1,10 @@
 plugins {
     java
+    jacoco
     id("org.springframework.boot") version "3.2.5"
     id("io.spring.dependency-management") version "1.1.4"
     id ("org.flywaydb.flyway") version "10.11.0"
     id("org.sonarqube") version "4.4.1.3373"
-    jacoco
 }
 
 sonar {
