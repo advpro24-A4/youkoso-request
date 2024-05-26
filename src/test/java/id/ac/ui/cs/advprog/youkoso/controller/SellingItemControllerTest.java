@@ -70,7 +70,6 @@ public class SellingItemControllerTest {
                 .build();
     }
 
-    @WithMockUser
     @Test
     void testCreateSellingItem() throws Exception {
         when(sellingItemService.createSellingItem(any(SellingItem.class))).thenReturn(sellingItem);
