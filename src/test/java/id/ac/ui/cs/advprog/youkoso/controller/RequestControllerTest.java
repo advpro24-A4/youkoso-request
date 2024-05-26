@@ -12,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -22,6 +23,10 @@ import static org.hamcrest.Matchers.hasSize;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import org.mockito.MockitoAnnotations;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -35,6 +40,9 @@ import static org.hamcrest.Matchers.is;
 public class RequestControllerTest {
 
     @Autowired
+    private WebApplicationContext webApplicationContext;
+
+    @Autowired
     private MockMvc mockMvc;
 
     @MockBean
@@ -45,6 +53,7 @@ public class RequestControllerTest {
 
     @BeforeEach
     void setUp() {
+        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 
         this.request = new RequestBuilder()
                 .requestId(UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e731"))
@@ -55,6 +64,8 @@ public class RequestControllerTest {
                 .build();
     }
 
+
+    @WithMockUser
     @Test
     void testCreateRequest() throws Exception {
         when(requestService.createRequest(any(Request.class))).thenReturn(request);
@@ -66,6 +77,7 @@ public class RequestControllerTest {
                 .andExpect(jsonPath("$.id", is(request.getId().toString())));
     }
 
+    @WithMockUser
     @Test
     void testCreateRequestBadRequest() throws Exception {
         // Arrange
@@ -86,6 +98,7 @@ public class RequestControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
+    @WithMockUser
     @Test
     void testGetAllRequests() throws Exception {
         List<Request> requests = new ArrayList<>();
@@ -99,6 +112,7 @@ public class RequestControllerTest {
                 .andExpect(jsonPath("$[0].id", is(request.getId().toString())));
     }
 
+    @WithMockUser
     @Test
     void testGetAllRequestsNotFound() throws Exception {
         // Arrange
@@ -109,6 +123,7 @@ public class RequestControllerTest {
                 .andExpect(status().isNotFound());
     }
 
+    @WithMockUser
     @Test
     void testGetRequestById() throws Exception {
         UUID requestId = UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e731");
@@ -120,6 +135,7 @@ public class RequestControllerTest {
                 .andExpect(jsonPath("$.id", is(request.getId().toString())));
     }
 
+    @WithMockUser
     @Test
     void testGetRequestByIdNotFound() throws Exception {
         UUID requestId = UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e731");
@@ -130,6 +146,7 @@ public class RequestControllerTest {
                 .andExpect(status().isNotFound());
     }
 
+    @WithMockUser(roles = "USER")
     @Test
     void testUpdateRequest() throws Exception {
         UUID requestId = UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e731");
@@ -153,6 +170,7 @@ public class RequestControllerTest {
                 .andExpect(jsonPath("$.product", is(updatedRequest.getProduct())));
     }
 
+    @WithMockUser
     @Test
     void testUpdateRequestNotFound() throws Exception {
         UUID requestId = UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e731");
@@ -172,6 +190,7 @@ public class RequestControllerTest {
                 .andExpect(status().isNotFound());
     }
 
+    @WithMockUser
     @Test
     void testDeleteRequest() throws Exception {
         UUID requestId = UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e731");
@@ -183,6 +202,7 @@ public class RequestControllerTest {
                 .andExpect(jsonPath("$.id", is(request.getId().toString())));
     }
 
+    @WithMockUser
     @Test
     void testDeleteRequestNotFound() throws Exception {
         UUID requestId = UUID.fromString("a5c376a3-4817-44da-b8cf-cdd117f5e731");
