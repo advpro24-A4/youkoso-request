@@ -3,7 +3,16 @@ plugins {
     id("org.springframework.boot") version "3.2.5"
     id("io.spring.dependency-management") version "1.1.4"
     id ("org.flywaydb.flyway") version "10.11.0"
+    id("org.sonarqube") version "4.4.1.3373"
     jacoco
+}
+
+sonar {
+    properties {
+        property("sonar.projectKey", "advpro24-A4_youkoso-request")
+        property("sonar.organization", "advpro24-a4")
+        property("sonar.host.url", "https://sonarcloud.io")
+    }
 }
 
 group = "id.ac.ui.cs.advprog"
@@ -30,6 +39,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.flywaydb:flyway-core")
     implementation("org.springframework.boot:spring-boot-starter-actuator:3.2.5")
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     runtimeOnly("io.micrometer:micrometer-registry-prometheus:1.12.5")
     compileOnly("org.projectlombok:lombok")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
